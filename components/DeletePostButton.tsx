@@ -5,7 +5,7 @@ import React from 'react'
 import { Button } from './ui/button'
 
 interface DeletePostButtonProps {
-    postId: string;
+    postId: string | number;
 }
 
 const DeletePostButton: React.FC<DeletePostButtonProps> = ({postId}) => {
@@ -23,7 +23,7 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({postId}) => {
     }
   return (
     <div>
-      <Button onClick={handleClick}>Delete Post</Button>
+      <Button variant={'outline'} className='rounded-lg' onClick={handleClick}>Delete Post</Button>
     </div>
   )
 }

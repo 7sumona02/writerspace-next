@@ -3,6 +3,7 @@ import { Card, CardContent } from './ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Separator } from './ui/separator';
 import { Button } from './ui/button';
+import DeletePostButton from './DeletePostButton';
 
 interface PostProps {
     id: number | string;
@@ -41,9 +42,12 @@ const Post: React.FC<PostProps> = ({ id, title, content, authorName }) => {
                     <div className="text-muted-foreground">
                         {displayedContent}
                     </div>
-                    <Button variant="link" className="justify-start">
-                        Read more
-                    </Button>
+                    <div className='flex items-center justify-between'>
+                        <Button variant="link" className="justify-start">
+                            Read more
+                        </Button>
+                        <DeletePostButton postId={id} />
+                    </div>
                 </CardContent>
             </Card>
         </div>
