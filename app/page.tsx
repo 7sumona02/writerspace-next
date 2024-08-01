@@ -1,5 +1,7 @@
 import Post from '@/components/Post';
+import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
+import Link from 'next/link';
 import React from 'react'
 
 async function getPosts(){
@@ -46,6 +48,9 @@ export default async function Page() {
                 )
               })
             }
+            </div>
+            <div className='-translate-y-4'>
+              <Link href='/add-post'><Button variant={'secondary'} className='text-neutral-200 rounded-lg '>Add Posts</Button></Link>
             </div>
           </div>
         </section>
