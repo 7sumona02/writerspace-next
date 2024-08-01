@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
-import { MenuIcon } from "lucide-react"
+import { MenuIcon, PenTool } from "lucide-react"
 
 export default function Navbar() {
   return (
@@ -10,11 +10,11 @@ export default function Navbar() {
         <img src='/Logo.svg' alt='Logo' className="w-40 invert" />
       </Link>
       <nav className="hidden space-x-6 md:flex">
-        <Link href="/" className="text-sm font-medium transition-colors hover:text-primary" prefetch={false}>
-          About
+        <Link href="/add-post" className="flex items-center text-sm font-medium transition-colors hover:text-primary" prefetch={false}>
+            Write a Blog<PenTool className="w-4 ml-1" />
         </Link>
-        <Link href="/" className="text-sm font-medium transition-colors hover:text-primary" prefetch={false}>
-          Contact
+        <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary" prefetch={false}>
+          About
         </Link>
       </nav>
       <Sheet>
@@ -30,19 +30,19 @@ export default function Navbar() {
               <img src='/Logo.svg' alt='Logo' className="w-40 invert" />
             </Link>
             <nav className="grid gap-4">
+            <Link
+                href="/add-post"
+                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+                prefetch={false}
+              >
+                Write a Blog<PenTool className="w-4 mr-1" />
+              </Link>
               <Link
-                href="/"
+                href="/about"
                 className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
                 prefetch={false}
               >
                 About
-              </Link>
-              <Link
-                href="/"
-                className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
-                prefetch={false}
-              >
-                Contact
               </Link>
             </nav>
           </div>

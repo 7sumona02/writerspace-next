@@ -40,7 +40,7 @@ export default function Page() {
     }
 
     return (
-        <div className="h-screen w-full max-w-3xl mx-auto px-4 py-36">
+        <div className="h-screen w-full max-w-3xl mx-auto px-4 py-20">
             <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                     <Button variant={"link"}>
