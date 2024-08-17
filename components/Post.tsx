@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { Card, CardContent } from './ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -10,9 +11,13 @@ interface PostProps {
     title: string;
     content: string | null;
     authorName: string | null;
+    deleteThis: deleteThis
 }
+interface deleteThis {
+    (idx: string): void;
+  }
 
-const Post: React.FC<PostProps> = ({ id, title, content, authorName }) => {
+const Post: React.FC<PostProps> = ({ id, title, content, authorName, deleteThis }) => {
     const truncateContent = (text: string | null, maxLength: number) => {
         if (!text) return '';
         const words = text.split(' ');
@@ -46,7 +51,9 @@ const Post: React.FC<PostProps> = ({ id, title, content, authorName }) => {
                         <Button variant="link" className="justify-start">
                             Read more
                         </Button>
+                        <span onClick={()=>deleteThis(id as string)}>
                         <DeletePostButton postId={id} />
+                        </span>
                     </div>
                 </CardContent>
             </Card>

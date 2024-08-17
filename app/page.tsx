@@ -1,24 +1,28 @@
+'use client'
+import { getPosts } from '@/actions/db';
 import Post from '@/components/Post';
 import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
+import { Post as PostType } from '@prisma/client';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-async function getPosts(){
-  const posts = await prisma.post.findMany({
-    where:
-      {published: true},
-      include: {
-        author: {
-          select: {name: true}
-        }
-      }
-  })
-  return posts;
-}
 
-export default async function Page() {
-  const posts = await getPosts();
+export default function Page() {
+  const [posts, setPosts] = useState<PostType[] | null>();
+  
+  useEffect(()=>{
+    async function fetchData(){
+      const res = await getPosts();
+      setPosts(res);
+    }
+    fetchData();
+
+  }, [])
+
+  function deleteThis(idx: string){
+    setPosts(posts?.filter((id)=>id.id !== idx))
+  }
   console.log({posts})
   return (
     <div className="flex flex-col min-h-dvh">
@@ -34,9 +38,9 @@ export default async function Page() {
               </div>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 py-4">
-            {
-              posts.map((post) => {
-                const authorName = post.author ? post.author.name : 'Unknown Author'; 
+            {posts && 
+              posts.map((post, index) => {
+                const authorName = 'Sumona '; 
                 return (
                   <Post
                     key={post.id}
@@ -44,6 +48,7 @@ export default async function Page() {
                     title={post.title}
                     content={post.content}
                     authorName={authorName}
+                    deleteThis={deleteThis}
                   />
                 )
               })

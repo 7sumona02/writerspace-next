@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import { AddPost } from "@/actions/db";
 
 export default function Page() {
     const [title, setTitle] = useState('');
@@ -19,28 +20,17 @@ export default function Page() {
         setContent(event.target.value);
     }
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        try {
-            await fetch('/api/add-post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ title, content })
-            });
-
-            router.refresh();
-        } catch (error) {
-            console.error(error);
-        }
+    const handleSubmit = async () => {
+        const res = await AddPost({title, content})
+        console.log(res)
+        router.replace('/')
         setTitle('');
         setContent('');
     }
 
     return (
         <div className="h-screen w-full max-w-3xl mx-auto px-4 py-32">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-6">
                 <div>
                     <Input
                         type="text"
@@ -59,9 +49,9 @@ export default function Page() {
                     />
                 </div>
                 <div className="flex justify-end">
-                    <Button type="submit">Publish</Button>
+                    <Button type="submit" onClick={handleSubmit}>Publish</Button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 }
